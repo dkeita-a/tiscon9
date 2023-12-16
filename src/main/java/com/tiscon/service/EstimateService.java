@@ -89,7 +89,11 @@ public class EstimateService {
         int priceForOptionalService = 0;
 
         if (dto.getWashingMachineInstallation()) {
-            priceForOptionalService = estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
+            priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
+        }
+
+        if(dto.getOldPrefectureId() == "01" || dto.getNewPrefectureId() == "01"){
+            priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.HOKKAIDO.getCode());
         }
 
         return priceForDistance + pricePerTruck + priceForOptionalService;
