@@ -81,7 +81,7 @@ public class EstimateService {
                 + getBoxForPackage(dto.getBed(), PackageType.BED)
                 + getBoxForPackage(dto.getBicycle(), PackageType.BICYCLE)
                 + getBoxForPackage(dto.getWashingMachine(), PackageType.WASHING_MACHINE);
-
+        
         // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
         int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
 
@@ -92,7 +92,7 @@ public class EstimateService {
             priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
         }
 
-        if(dto.getOldPrefectureId() == "01" || dto.getNewPrefectureId() == "01"){
+        if(dto.getOldPrefectureId().equals("01") || dto.getNewPrefectureId().equals("01")){
             priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.HOKKAIDO.getCode());
         }
 
