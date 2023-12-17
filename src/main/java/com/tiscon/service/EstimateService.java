@@ -64,6 +64,25 @@ public class EstimateService {
     }
 
     /**
+     * 段ボールの数が200より多いならばエラーを出すようにする
+     *
+     * @param dto 見積もり依頼情報
+     * @return boolean
+     */
+
+    public boolean errorBoxes(UserOrderDto dto){
+        int boxes = getBoxForPackage(dto.getBox(), PackageType.BOX)
+                + getBoxForPackage(dto.getBed(), PackageType.BED)
+                + getBoxForPackage(dto.getBicycle(), PackageType.BICYCLE)
+                + getBoxForPackage(dto.getWashingMachine(), PackageType.WASHING_MACHINE);
+        if(boxes > 200){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
      * 見積もり依頼に応じた概算見積もりを行う。
      *
      * @param dto 見積もり依頼情報
@@ -81,7 +100,7 @@ public class EstimateService {
                 + getBoxForPackage(dto.getBed(), PackageType.BED)
                 + getBoxForPackage(dto.getBicycle(), PackageType.BICYCLE)
                 + getBoxForPackage(dto.getWashingMachine(), PackageType.WASHING_MACHINE);
-        
+
         // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
         int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
 
@@ -94,6 +113,14 @@ public class EstimateService {
 
         if(dto.getOldPrefectureId().equals("01") || dto.getNewPrefectureId().equals("01")){
             priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.HOKKAIDO.getCode());
+        }
+
+        if(dto.getOldPrefectureId().equals("03") || dto.getNewPrefectureId().equals("03")){
+            priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.IWATE.getCode());
+        }
+
+        if(dto.getOldPrefectureId().equals("07") || dto.getNewPrefectureId().equals("07")){
+            priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.FUKUSHIMA.getCode());
         }
 
         return priceForDistance + pricePerTruck + priceForOptionalService;

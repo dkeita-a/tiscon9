@@ -66,13 +66,6 @@ public class EstimateController {
     String backToTop(Model model) {
         return "top";
     }
- /**
-     * 確認画面に戻る。
-     *
-     * @param userOrderForm 顧客が入力した見積もり依頼情報
-     * @param model         遷移先に連携するデータ
-     * @return 遷移先
-     */
     @PostMapping(value = "order", params = "backToTop")
     String backToTop(UserOrderForm userOrderForm, Model model) {
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
@@ -87,10 +80,17 @@ public class EstimateController {
      * @return 遷移先
      */
     @PostMapping(value = "submit", params = "confirm")
-    String confirm(UserOrderForm userOrderForm, Model model) {
-        model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
-        model.addAttribute("userOrderForm", userOrderForm);
-        return "confirm";
+    String confirm(@Validated UserOrderForm userOrderForm, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+
+            model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
+            model.addAttribute("userOrderForm", userOrderForm);
+            return "input";
+        }else{
+            model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
+            model.addAttribute("userOrderForm", userOrderForm);
+            return "confirm";
+        }
     }
 
     /**
