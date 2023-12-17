@@ -74,6 +74,17 @@
           <td><span th:text="*{newAddress}"></span></td>
           <input type="hidden" name="newAddress" id="newAddress" th:value="*{newAddress}"/>
         </tr>
+        <tr>
+          <th>引越し日</th>
+          <td>
+            <div th:switch="*{season}">
+              <p th:case="0" >3~4月</p>
+              <p th:case="1" >9月</p>
+              <p th:case="2" >その他</p>
+            </div>
+          </td>
+          <input type="hidden" name="season" id="season" th:value="*{season}"/>
+        </tr>
         </tbody>
       </table>
       <div class="sub-title">お荷物情報</div>

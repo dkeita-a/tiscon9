@@ -20,7 +20,7 @@ public class Customer implements Serializable {
 
     private String newAddress;
 
-    private Integer season;
+    private String season;
 
     public int getCustomerId() {
         return customerId;
@@ -86,11 +86,11 @@ public class Customer implements Serializable {
         this.newAddress = newAddress;
     }
 
-    public int getSeason() {
+    public String getSeason() {
         return season;
     }
 
-    public void setSeason(Integer season) {
+    public void setSeason(String season) {
         this.season = season;
     }
 }

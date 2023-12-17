@@ -107,6 +107,9 @@ public class EstimateService {
         // オプションサービスの料金を算出する。
         int priceForOptionalService = 0;
 
+        //季節係数
+        double seasonCoef;
+
         if (dto.getWashingMachineInstallation()) {
             priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
         }
@@ -123,7 +126,15 @@ public class EstimateService {
             priceForOptionalService += estimateDAO.getPricePerOptionalService(OptionalServiceType.FUKUSHIMA.getCode());
         }
 
-        return priceForDistance + pricePerTruck + priceForOptionalService;
+        if(dto.getSeason().equals("0")){
+            seasonCoef = 1.5;            
+        }else if(dto.getSeason().equals("1")){
+            seasonCoef = 1.2;
+        }else{
+            seasonCoef = 1.0;
+        }    
+
+        return (int)Math.floor((priceForDistance + pricePerTruck)*seasonCoef + priceForOptionalService);
     }
 
     /**

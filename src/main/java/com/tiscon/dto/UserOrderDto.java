@@ -16,7 +16,7 @@ public class UserOrderDto {
 
     private String newAddress;
 
-    private Integer season;
+    private String season;
 
     private String box;
 
@@ -84,11 +84,11 @@ public class UserOrderDto {
         this.newAddress = newAddress;
     }
 
-    public Integer getSeason() {
+    public String getSeason() {
         return season;
     }
 
-    public void setSeason(Integer season) {
+    public void setSeason(String season) {
         this.season = season;
     }
 
