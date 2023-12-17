@@ -32,7 +32,7 @@
           <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="error-message"></span>
         </div>
         <div class="form-group">
-          <label for="tel">連絡先TEL（例:03-1234-5678）</label>
+          <label for="tel">連絡先TEL（例:0312345678）</label>
           <input type="tel" id="tel" name="tel" th:field="*{tel}" class="form-control" value="03-1234-5678" placeholder="連絡先TEL"/>
           <span th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}" class="error-message"></span>
         </div>
